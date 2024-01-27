@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.jpg') }}" type="image/jpeg">
+    <title>Medicine Information</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="content">
+        <h1>Medicine Information</h1>
+        <form method="POST">
+            <input type="text" name="medicine_name" placeholder="Enter the name of the medicine:" required>
+            <button type="search">Search</button>
+        </form>
+        {% if medicine_info %}
+            <div class="medicine-info">
+                {{ medicine_info | safe }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
