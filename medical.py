@@ -10,7 +10,7 @@ def medicine_info():
         prompt = f"Tell me about the medicine {medicine_name}. I want to know its uses, dosage, side effects, and precautions."
 
         # Use the OpenAI API to generate a response
-        openai.api_key = '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'
+        openai.api_key = 'API_Key'
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
