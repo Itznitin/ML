@@ -10,7 +10,7 @@ def medicine_info():
         prompt = f"Tell me about the medicine {medicine_name}. I want to know its uses, dosage, side effects, and precautions."
 
         # Use the OpenAI API to generate a response
-        openai.api_key = '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'
+        openai.api_key = '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'
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -23,7 +23,7 @@ def medicine_info():
         medicine_info = response['choices'][0]['message']['content']
 
         # Format the response as HTML
-        medicine_info_html = f"<h3>{medicine_name}</h3>{medicine_info.replace('.', '.<br>')}"
+        medicine_info_html = f"<h3>{medicine_name}</h3>{medicine_info.replace('Uses:', '<h4>Uses:</h4>').replace('Dosage:', '<h4>Dosage:</h4>').replace('Side Effects:', '<h4>Side Effects:</h4>').replace('Precautions:', '<h4>Precautions:</h4>')}"
         
         return render_template('index.html', medicine_info=medicine_info_html)
 
