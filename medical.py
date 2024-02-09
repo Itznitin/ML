@@ -12,8 +12,8 @@ genai.configure(api_key=os.environ['GOOGLE_CLOUD_API_KEY'])
 
 # Create a connection to your MongoDB instance
 client = MongoClient('mongodb://localhost:27017/')
-db = client['local']  # replace with your database name
-users = db['medical']  # replace with your collection name
+db = client['your_database_name']  # replace with your database name
+users = db['users']  # replace with your collection name
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -103,5 +103,5 @@ def medicine_info():
             
     return render_template('index.html', medicine_info=medicine_info_html, analysis=analysis_html)
 
-if __name__ == '_main_':
+if __name__ == '__main__':
     app.run(debug=True)
