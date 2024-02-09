@@ -12,8 +12,8 @@ genai.configure(api_key=os.environ['GOOGLE_CLOUD_API_KEY'])
 
 # Create a connection to your MongoDB instance
 client = MongoClient('mongodb://localhost:27017/')
-db = client['your_database_name']  # replace with your database name
-users = db['users']  # replace with your collection name
+db = client['local']  # replace with your database name
+users = db['medical']  # replace with your collection name
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -67,9 +67,9 @@ def medicine_info():
             }
             prompt_parts = [
                 "You are a helpful assistant. Analyze the following image and provide a detailed report on any abnormalities, and symptoms. Please format the report as follows:\n\n"
-    "1. **Report:**  describe the key findings from the medical report in proper way.\n"
-    "2. **Abnormalities:** List any abnormalities detected in the image and describe their characteristics.\n"
-    "3. **Symptoms:** Describe any symptoms that might be associated with these diagnoses.\n\n",
+    "1. *Report:*  describe the key findings from the medical report in proper way.\n"
+    "2. *Abnormalities:* List any abnormalities detected in the image and describe their characteristics.\n"
+    "3. *Symptoms:* Describe any symptoms that might be associated with these diagnoses.\n\n",
     image_part,
 ]
             response = model.generate_content(prompt_parts)
@@ -78,7 +78,7 @@ def medicine_info():
             analysis = response.text  # Use 'text' instead of 'generated_text'
 
             # Remove the double asterisks from the analysis
-            analysis = analysis.replace('**', '')
+            analysis = analysis.replace('', '')
 
             # Format the analysis as HTML
             analysis_html = f"<h3>Analysis</h3>{analysis.replace('Abnormalities:', '<h4>Abnormalities:</h4>').replace('Report:', '<h4>Report:</h4>').replace('Symptoms:', '<h4>Symptoms:</h4>').replace('Recommendations:', '<h4>Recommendations:</h4>')}"
@@ -86,7 +86,7 @@ def medicine_info():
             medicine_name = request.form['medicine_name']
             prompt = f"Tell me about the medicine {medicine_name}. I want to know its uses, dosage, side effects, and precautions in proper format."
             # Use the OpenAI API to generate a response
-            openai.api_key = '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'
+            openai.api_key = 'API_KEY'
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[
@@ -103,5 +103,5 @@ def medicine_info():
             
     return render_template('index.html', medicine_info=medicine_info_html, analysis=analysis_html)
 
-if __name__ == '__main__':
+if __name__ == '_main_':
     app.run(debug=True)

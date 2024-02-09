@@ -3,6 +3,9 @@ body {
     background-image: url('../static/favicon.jpg');
     background-size: cover;
     font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .navbar {
@@ -45,10 +48,16 @@ body {
 }
 
 .content {
+    display: none;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
     margin: 20px;
     border-radius: 15px;
+    flex: 1;
+}
+
+.content.active {
+    display: block;
 }
 
 h1 {
@@ -56,41 +65,47 @@ h1 {
     color: #4CAF50;
 }
 
-.medicine-info {
-    border: 1px solid #000;
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
     padding: 10px;
     margin-top: 20px;
-    background-color: #f8f9fa;
-    font-size: 20px;
-    border-radius: 15px;
 }
 
-.medicine-info h3 {
-    font-size: 24px;
-}
-
-.medicine-info h4 {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-form {
+.input-row {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    width: 50%;
+    margin-bottom: 10px;
 }
 
-input[type="text"] {
+.input-group input[type="text"] {
+    flex: 1;
     margin-right: 10px;
     padding: 5px;
     font-size: 16px;
-    width: 50%;
-    border-radius: 5px;
-    border: 1px solid #4CAF50;
+    border: none;
 }
 
-button {
+.file-upload {
+    display: inline-block;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.file-upload .material-icons {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.input-group button {
     padding: 10px 20px;
     font-size: 16px;
     background-color: #4CAF50;
@@ -104,6 +119,93 @@ button {
     border-radius: 5px;
 }
 
-button:hover {
+.medicine-info, .analysis {
+    border: 1px solid #000;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #f8f9fa;
+    font-size: 20px;
+    border-radius: 15px;
+}
+
+.medicine-info h3, .analysis h3 {
+    font-size: 24px;
+}
+
+.medicine-info h4, .analysis h4 {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+footer {
+    background-color: rgba(0, 128, 128, 0.8);
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.footer-content p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    color: #fff;
+}
+
+.footer-content .logo-copyright {
+    display: flex;
+    align-items: center;
+}
+
+.footer-content img {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: #4CAF50;
+    transition-duration: 0.3s;
+}
+
+.login-form, .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.login-form input, .signup-form input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.login-form button:hover, .signup-form button:hover {
     background-color: #45a049;
+}
+
+.center-text {
+    text-align: center;
 }
