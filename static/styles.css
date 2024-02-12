@@ -60,6 +60,11 @@ body {
     display: block;
 }
 
+#jitsi-meet-conf-container {
+    width: 100%;
+    height: 500px;
+}
+
 h1 {
     text-align: center;
     color: #4CAF50;

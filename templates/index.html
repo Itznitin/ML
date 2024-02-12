@@ -6,6 +6,7 @@
     <link rel="icon" href="{{ url_for('static', filename='logo.png') }}" type="image/png">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Material+Icons'>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src='https://meet.jit.si/external_api.js'></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
@@ -19,11 +20,12 @@
                 <li><a href="#home" onclick="showSection('home')">Home</a></li>
                 <li><a href="#about" onclick="showSection('about')">About</a></li>
                 <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
-                <li><a href="#login" onclick="showSection('login')">Login/Signup</a></li>
+                <li><a href="#login" onclick="showSection('login')">Login</a></li>
+                <li><a href="#video" onclick="showSection('video')">Video Conference</a></li>
             </ul>
         </nav>
     </header>
-
+    
     <div id="home" class="content active">
         <h1>MediMate</h1>
         <form method="POST" enctype="multipart/form-data" class="input-group">
@@ -80,12 +82,17 @@
         </form>
     </div>
 
+    <div id="video" class="content">
+        <h1>Video Conference</h1>
+        <div id="jitsi-meet-conf-container"></div>
+        
+    </div>
+    
+
     <footer>
         <div class="footer-content">
             <img src="{{ url_for('static', filename='logo-removebg.png') }}" alt="logo">
             <p>@2024 MediMate. All rights reserved.</p>
-      
-            </ul>
         </div>
     </footer>
 </body>
