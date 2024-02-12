@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
     <title>MediMate</title>
@@ -18,38 +18,25 @@
             <ul class="links">
                 <li><a href="#home" onclick="showSection('home')">Home</a></li>
                 <li><a href="#about" onclick="showSection('about')">About</a></li>
-                <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
-                <li><a href="#login" onclick="showSection('login')">Login</a></li>
                 <li><a href="#video" onclick="showSection('video')">Video Conference</a></li>
+                <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
             </ul>
         </nav>
     </header>
-    <div id="signup" class="content">
-        <h1>Signup</h1>
-        <form method="POST" action="/signup" class="signup-form" name="signupForm"> <!-- Add name attribute -->
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <select name="role" required>
-                <option value="">Select Role</option>
-                <option value="consumer">Consumer</option>
-                <option value="doctor">Doctor</option>
-            </select>
-            <input type="text" name="roomName" placeholder="Room Name" required>
-            <button type="submit" class="btn" onclick="return validateSignupForm()">Sign up</button> <!-- Add onclick attribute -->
-        </form>
-    </div>
-    <!-- Add separate sections for the consumer and doctor homepages -->
-    <div id="consumer_homepage" class="content">
-        <h1>Consumer Homepage</h1>
-        <!-- Add your content here... -->
-    </div>
-    
-    <div id="doctor_homepage" class="content">
-        <h1>Doctor Homepage</h1>
-        <!-- Add your content here... -->
+ 
+    <h1>Welcome to the Consumer Homepage</h1>
+
+    <!-- Add your content here... -->
+    <div id="video" class="content">
+        <h1>Video Conference</h1>
+        <p>Select a doctor from the list below:</p>
+        <select id="doctorList">
+            <!-- The options here should be dynamically generated based on the available doctors -->
+        </select>
+        <button onclick="selectDoctor()">Join Meeting</button>
+        <div id="jitsi-meet-conf-container"></div>
     </div>
     <div id="home" class="content active">
-        <h1>MediMate</h1>
         <form method="POST" enctype="multipart/form-data" class="input-group">
             <div class="input-row">
                 <input type="text" name="medicine_name" placeholder="Enter your query:" required>
@@ -84,33 +71,7 @@
         <h1>Contact Us</h1>
         <p>You can contact us at info@medimate.com.</p>
     </div>
-
-    <div id="login" class="content">
-        <h1>Login</h1>
-        <form method="POST" action="/login" class="login-form"> <!-- Add action attribute -->
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit" class="btn">Login</button>
-        </form>
-        <p class="center-text">Don't have an account? <a href="#signup" onclick="showSection('signup')">Sign up</a></p>
-    </div>
-
-    <div id="signup" class="content">
-        <h1>Signup</h1>
-        <form method="POST" class="signup-form">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit" class="btn">Sign up</button>
-        </form>
-    </div>
-
-    <div id="video" class="content">
-        <h1>Video Conference</h1>
-        <div id="jitsi-meet-conf-container"></div>
-        
-    </div>
     
-
     <footer>
         <div class="footer-content">
             <img src="{{ url_for('static', filename='logo-removebg.png') }}" alt="logo">

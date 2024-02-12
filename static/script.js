@@ -5,23 +5,20 @@ function showSection(id) {
     }
     document.getElementById(id).classList.add('active');
     window.scrollTo(0, 0);
-
-    if (id === 'video') {
-        StartMeeting('newRoom_' + (new Date()).getTime(), 'New User');
-    }
 }
 
-function validateForm() {
-    var username = document.forms["loginForm"]["username"].value;
-    var password = document.forms["loginForm"]["password"].value;
+function validateSignupForm() {
+    var username = document.forms["signupForm"]["username"].value;
+    var password = document.forms["signupForm"]["password"].value;
+    var role = document.forms["signupForm"]["role"].value;
 
-    if (username == "" || password == "") {
-        alert("Username and Password must be filled out");
+    if (username == "" || password == "" || role == "") {
+        alert("Username, Password and Role must be filled out");
         return false;
     }
 }
 
-function StartMeeting(roomName, dispNme) {
+function startMeeting(roomName, dispName) {
     const domain = 'meet.jit.si';
     const options = {
         roomName: roomName,
@@ -29,7 +26,7 @@ function StartMeeting(roomName, dispNme) {
         height: '500px',
         parentNode: document.querySelector('#jitsi-meet-conf-container'),
         userInfo: {
-            displayName: dispNme
+            displayName: dispName
         },
         configOverwrite: {
             startWithVideoMuted: false,
@@ -60,3 +57,47 @@ function StartMeeting(roomName, dispNme) {
     };
     const apiObj = new JitsiMeetExternalAPI(domain, options);
 }
+
+function joinMeeting(roomName) {
+    // The roomName should be provided by the doctor
+    startMeeting(roomName, 'New User');
+}
+function selectDoctor() {
+    // The selectedDoctor should be the doctor selected by the consumer
+    var selectedDoctor = document.getElementById("doctorList").value;
+
+    // Retrieve the roomName for the selected doctor from your server
+    // This would require a server-side endpoint that returns the roomName for a given doctor
+    fetch('/getRoomName?doctor=' + encodeURIComponent(selectedDoctor))
+        .then(response => response.text())
+        .then(roomName => {
+            // Use the retrieved roomName to join the meeting
+            joinMeeting(roomName);
+        });
+}
+
+
+function createMeeting() {
+    // The roomName should be created by the doctor
+    var roomName = "Doctor's Room";  // Replace this with the actual room name
+    startMeeting(roomName, 'Doctor');
+}
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if the doctorList element exists on the page
+    var doctorList = document.getElementById('doctorList');
+    if (doctorList) {
+        // Fetch the list of doctors from your server
+        fetch('/getDoctors')
+            .then(response => response.json())
+            .then(doctors => {
+                // Create an option element for each doctor
+                for (var i = 0; i < doctors.length; i++) {
+                    var option = document.createElement('option');
+                    option.value = doctors[i];
+                    option.text = doctors[i];
+                    doctorList.appendChild(option);
+                }
+            });
+    }
+});
+

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>MediMate</title>
+            <link rel="icon" href="{{ url_for('static', filename='logo.png') }}" type="image/png">
+            <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Material+Icons'>
+            <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+            <script src='https://meet.jit.si/external_api.js'></script>
+            <script src="{{ url_for('static', filename='script.js') }}"></script>
+            
+        </head>
+        <body>
+            <header>
+                <nav class="navbar">
+                    <a href="#" class="logo">
+                        <img src="{{ url_for('static', filename='logo-removebg.png') }}" alt="logo">
+                        <h2></h2>
+                    </a>
+                    <ul class="links">
+                        <li><a href="#home" onclick="showSection('home')">Home</a></li>
+                        <li><a href="#about" onclick="showSection('about')">About</a></li>
+                        <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
+                        <li><a href="#video" onclick="showSection('video')">Video Conference</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <h1>Welcome to the Doctor Homepage</h1>
+        
+            <!-- Add your content here... -->
+            <div id="video" class="content">
+                <h1>Video Conference</h1>
+                <button onclick="createMeeting()">Create Meeting</button> <!-- Modify onclick attribute -->
+                <div id="jitsi-meet-conf-container"></div> <!-- Add this line -->
+            </div>
+    
+    <div id="home" class="content active">
+        <h1>MediMate</h1>
+        <form method="POST" enctype="multipart/form-data" class="input-group">
+            <div class="input-row">
+                <input type="text" name="medicine_name" placeholder="Enter your query:" required>
+                <button type="submit" class="btn">Submit</button>
+            </div>
+            <div class="input-row">
+                <label for="medical_image" class="file-upload">
+                    <span class="material-icons">cloud_upload</span>
+                    Choose file
+                </label>
+                <input type="file" name="medical_image" id="medical_image" accept="image/*" hidden>
+            </div>
+        </form>
+        {% if medicine_info %}
+            <div class="medicine-info">
+                {{ medicine_info | safe }}
+            </div>
+        {% endif %}
+        {% if analysis %}
+            <div class="analysis">
+                {{ analysis | safe }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div id="about" class="content">
+        <h1>About MediMate</h1>
+        <p>MediMate is a web application that provides information about medicines and analyzes medical images. It uses advanced AI models to generate the information.</p>
+    </div>
+
+    <div id="contact" class="content">
+        <h1>Contact Us</h1>
+        <p>You can contact us at info@medimate.com.</p>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <img src="{{ url_for('static', filename='logo-removebg.png') }}" alt="logo">
+            <p>@2024 MediMate. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
