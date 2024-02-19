@@ -78,10 +78,16 @@ function selectDoctor() {
 
 
 function createMeeting() {
-    // The roomName should be created by the doctor
-    var roomName = "Doctor's Room";  // Replace this with the actual room name
-    startMeeting(roomName, 'Doctor');
+    // Fetch the roomName for the logged in doctor from your server
+    fetch('/getRoomName')
+        .then(response => response.text())
+        .then(roomName => {
+            // Use the retrieved roomName to start the meeting
+            startMeeting(roomName, 'Doctor');
+        });
 }
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // Check if the doctorList element exists on the page
     var doctorList = document.getElementById('doctorList');
@@ -100,4 +106,39 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 });
+
+function updateDoctorList() {
+    // Fetch the list of doctors from the server
+    fetch('/getDoctors')
+        .then(response => response.json())
+        .then(doctors => {
+            // Get the select element
+            var doctorList = document.getElementById('doctorList');
+
+            // Store the currently selected doctor
+            var selectedDoctor = doctorList.value;
+
+            // Remove all existing options
+            while (doctorList.firstChild) {
+                doctorList.removeChild(doctorList.firstChild);
+            }
+
+            // Add an option for each doctor
+            for (var i = 0; i < doctors.length; i++) {
+                var option = document.createElement('option');
+                option.value = doctors[i];
+                option.text = doctors[i];
+                doctorList.appendChild(option);
+            }
+
+            // Restore the selected doctor
+            doctorList.value = selectedDoctor;
+        });
+}
+
+// Call updateDoctorList when the page loads
+window.onload = updateDoctorList;
+
+// Update the doctor list every 5 seconds
+setInterval(updateDoctorList, 5000);
 
